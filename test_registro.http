@@ -1,0 +1,13 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "username": "gema_pro",
+  "email": "gema@zenit.com",
+  "password": "password123"
+}
