@@ -1,0 +1,11 @@
+ktor:
+  deployment:
+    port: 8080
+  application:
+    modules:
+      - com.zenit.SerializationKt.configureSerialization
+      - com.zenit.SecurityKt.configureSecurity
+      - com.zenit.ExposedKt.configureExposed
+      - com.zenit.ResourcesKt.configureResources
+      - com.zenit.StatusPagesKt.configureStatusPages
+      - com.zenit.RoutingKt.configureRouting
