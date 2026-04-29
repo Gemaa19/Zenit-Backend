@@ -10,3 +10,9 @@ storage:
   jdbcURL: "jdbc:mysql://localhost:3307/zenit_db"
   user: "root"
   password: "ChuckNorris2025"
+
+jwt:
+  secret: "tu_clave_secreta_super_segura_123"
+  issuer: "http://0.0.0.0:8080/"
+  audience: "http://0.0.0.0:8080/hello"
+  realm: "Access to 'zenit'"

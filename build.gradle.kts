@@ -41,6 +41,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
     implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
     implementation("org.jetbrains.exposed:exposed-core:0.41.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.41.1")
     // Conector MySQL (El que hablará con tu Docker)
     implementation("mysql:mysql-connector-java:8.0.33")
 
@@ -48,4 +49,5 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.14")
     testImplementation(kotlin("test"))
     implementation("io.ktor:ktor-server-test-host-jvm:2.3.12")
+    implementation("io.ktor:ktor-server-auth-jwt:2.3.12")
 }

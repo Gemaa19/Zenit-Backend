@@ -1,16 +1,22 @@
 package com.gema.zenit
 
-import com.gema.zenit.routes.AuthRutas
+import com.gema.zenit.routes.*
 import io.ktor.server.application.*
-import io.ktor.server.response.*
+import io.ktor.server.auth.authenticate
 import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     routing {
-        AuthRutas()
+        //rutas sin token
+        authRouting()
 
-        get("/") {
-            call.respondText("¡Servidor Zenit funcionando!")
+        //rutas protegidas
+        authenticate("auth-jwt") {
+            transaccionRouting()
+            categoriaRouting()
+            estadisticaRouting()
+            metaRouting()
+            presupuestoRouting()
         }
     }
 }

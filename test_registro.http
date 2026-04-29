@@ -1,9 +1,8 @@
 ### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
+GET http://localhost:8080/movimientos
 
 ###
-POST http://localhost:8080/register
+POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
@@ -11,3 +10,98 @@ Content-Type: application/json
   "email": "gema@zenit.com",
   "password": "password123"
 }
+
+### Prueba de Login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "gema@zenit.com",
+  "password": "password123"
+}
+
+> {% client.global.set("token_actual", response.body.token); %}
+
+### Prueba de acceso a ruta protegida
+GET http://localhost:8080/movimientos
+Authorization: Bearer {{token_actual}}
+
+### Crear una nueva transacción (Gasto)
+POST http://localhost:8080/transacciones
+Authorization: Bearer {{token_actual}}
+Content-Type: application/json
+
+{
+  "monto": 25.50,
+  "descripcion": "Cena de viernes",
+  "tipo": "GASTO",
+  "categoriaId": 1
+}
+
+### Obtener todos mis gastos
+GET http://localhost:8080/transacciones
+Authorization: Bearer {{token_actual}}
+
+### Obtener lista de categorías para los desplegables
+GET http://localhost:8080/categorias
+
+### Crear una nueva categoría personalizada
+POST http://localhost:8080/categorias
+Authorization: Bearer {{token_actual}}
+Content-Type: application/json
+
+{
+  "nombre": "Gimnasio",
+  "icono": "fitness_center"
+}
+
+### Obtener resumen del mes actual
+GET http://localhost:8080/stats/resumen
+Authorization: Bearer {{token_actual}}
+
+### Borrar una transacción (Cambia el 1 por un ID real que tengas)
+DELETE http://localhost:8080/transacciones/5
+Authorization: Bearer {{token_actual}}
+
+### Editar una transacción
+PUT http://localhost:8080/transacciones/6
+Authorization: Bearer {{token_actual}}
+Content-Type: application/json
+
+{
+  "monto": 50.0,
+  "descripcion": "Cena editada",
+  "tipo": "GASTO",
+  "categoriaId": 1
+}
+
+### Crear una meta
+POST http://localhost:8080/metas
+Authorization: Bearer {{token_actual}}
+Content-Type: application/json
+
+{
+  "nombre": "Coche nuevo",
+  "objetivo": 5000.0,
+  "fechaLimite": "2026-12-31"
+}
+
+### Ver mis metas
+GET http://localhost:8080/metas
+Authorization: Bearer {{token_actual}}
+
+### 1. Crear un presupuesto para una categoría (ej: Comida)
+POST http://localhost:8080/presupuestos
+Authorization: Bearer {{token_actual}}
+Content-Type: application/json
+
+{
+  "montoLimite": 300.0,
+  "categoriaId": 1,
+  "mes": 4,
+  "anio": 2026
+}
+
+### 2. Obtener todos mis presupuestos configurados
+GET http://localhost:8080/presupuestos
+Authorization: Bearer {{token_actual}}
