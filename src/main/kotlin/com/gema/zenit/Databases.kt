@@ -1,22 +1,28 @@
 package com.gema.zenit
 
-import com.gema.zenit.data.tablas.*
+import com.gema.zenit.data.tablas.TablasAlertas
+import com.gema.zenit.data.tablas.TablasCategorias
+import com.gema.zenit.data.tablas.TablasMetas
+import com.gema.zenit.data.tablas.TablasObjetivosAhorro
+import com.gema.zenit.data.tablas.TablasPresupuestos
+import com.gema.zenit.data.tablas.TablasTransacciones
+import com.gema.zenit.data.tablas.TablasUsuarios
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabases() {
-    val jdbcUrl = environment.config.property("storage.jdbcURL").getString()
+    // Ktor lee esto desde tu application.yaml
     val driverClass = environment.config.property("storage.driverClassName").getString()
-    val user = environment.config.property("storage.user").getString()
-    val password = environment.config.property("storage.password").getString()
+    val dbUrl = environment.config.property("storage.jdbcURL").getString()
+    val dbUser = environment.config.property("storage.user").getString()
+    val dbPassword = environment.config.property("storage.password").getString()
 
-    // 1. Conexión
     Database.connect(
-        url = jdbcUrl,
+        url = dbUrl,
         driver = driverClass,
-        user = user,
-        password = password
+        user = dbUser,
+        password = dbPassword
     )
 
     // 2. Creación automática de tablas

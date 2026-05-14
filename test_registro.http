@@ -1,6 +1,8 @@
+//PRUEBA SIN AUTENTICACION
 ### GET request to example server
-GET http://localhost:8080/movimientos
+GET http://localhost:8080/transacciones
 
+//REGISTRO USUARIO
 ###
 POST http://localhost:8080/auth/register
 Content-Type: application/json
@@ -12,6 +14,7 @@ Content-Type: application/json
 }
 
 ### Prueba de Login
+//LOGIN
 POST http://localhost:8080/auth/login
 Content-Type: application/json
 
@@ -23,7 +26,7 @@ Content-Type: application/json
 > {% client.global.set("token_actual", response.body.token); %}
 
 ### Prueba de acceso a ruta protegida
-GET http://localhost:8080/movimientos
+GET http://localhost:8080/transacciones
 Authorization: Bearer {{token_actual}}
 
 ### Crear una nueva transacción (Gasto)
@@ -38,33 +41,12 @@ Content-Type: application/json
   "categoriaId": 1
 }
 
-### Obtener todos mis gastos
-GET http://localhost:8080/transacciones
-Authorization: Bearer {{token_actual}}
-
-### Obtener lista de categorías para los desplegables
-GET http://localhost:8080/categorias
-
-### Crear una nueva categoría personalizada
-POST http://localhost:8080/categorias
-Authorization: Bearer {{token_actual}}
-Content-Type: application/json
-
-{
-  "nombre": "Gimnasio",
-  "icono": "fitness_center"
-}
-
-### Obtener resumen del mes actual
-GET http://localhost:8080/stats/resumen
-Authorization: Bearer {{token_actual}}
-
-### Borrar una transacción (Cambia el 1 por un ID real que tengas)
-DELETE http://localhost:8080/transacciones/5
+### Borrar una transacción
+DELETE http://localhost:8080/transacciones/11
 Authorization: Bearer {{token_actual}}
 
 ### Editar una transacción
-PUT http://localhost:8080/transacciones/6
+PUT http://localhost:8080/transacciones/10
 Authorization: Bearer {{token_actual}}
 Content-Type: application/json
 
@@ -75,6 +57,27 @@ Content-Type: application/json
   "categoriaId": 1
 }
 
+### Obtener lista de categorías para los desplegables
+//CATEGORIAS
+GET http://localhost:8080/categorias
+Authorization: Bearer {{token_actual}}
+
+### Crear una nueva categoría personalizada
+POST http://localhost:8080/categorias
+Authorization: Bearer {{token_actual}}
+Content-Type: application/json
+
+{
+  "nombre": "Salud",
+  "icono": "fitness_center"
+}
+
+### Obtener resumen del mes actual
+//PARA LAS ESTADISTICAS
+GET http://localhost:8080/stats/resumen
+Authorization: Bearer {{token_actual}}
+
+//METAS
 ### Crear una meta
 POST http://localhost:8080/metas
 Authorization: Bearer {{token_actual}}
@@ -90,6 +93,7 @@ Content-Type: application/json
 GET http://localhost:8080/metas
 Authorization: Bearer {{token_actual}}
 
+//PRESUPUESTOS
 ### 1. Crear un presupuesto para una categoría (ej: Comida)
 POST http://localhost:8080/presupuestos
 Authorization: Bearer {{token_actual}}

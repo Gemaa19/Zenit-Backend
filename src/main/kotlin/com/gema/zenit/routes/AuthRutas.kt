@@ -31,7 +31,7 @@ fun Route.authRouting() {
 
             if (esValido) {
                 val config = call.application.environment.config
-                val jwtSecret = config.property("jwt.secret").getString()
+                val jwtSecret = environment.config.property("jwt.secret").getString()
                 val jwtIssuer = config.property("jwt.issuer").getString()
                 val jwtAudience = config.property("jwt.audience").getString()
 

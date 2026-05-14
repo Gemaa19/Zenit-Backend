@@ -3,7 +3,8 @@ package com.gema.zenit.data
 import com.gema.zenit.data.tablas.TablasCategorias
 import com.gema.zenit.models.CategoriaResponse
 import com.gema.zenit.models.SolicitudCategoria
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object ServicioCategorias {
@@ -19,13 +20,13 @@ object ServicioCategorias {
         }
     }
 
-    fun crearCategoria(datos: SolicitudCategoria): Long {
+    fun crearCategoria(datos: SolicitudCategoria, idUsuario: Long): Long { // Cambiado a Long
         return transaction {
             TablasCategorias.insert {
                 it[nombre] = datos.nombre
                 it[icono] = datos.icono
-            }[TablasCategorias.id]
+                it[TablasCategorias.usuarioId] = idUsuario // ¡Aquí está la magia!
+            }[TablasCategorias.id].toLong() // (o .toLong() según lo tengas)
         }
     }
 }
-

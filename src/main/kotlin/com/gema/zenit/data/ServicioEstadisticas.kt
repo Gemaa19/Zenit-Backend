@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.javatime.month
 import org.jetbrains.exposed.sql.javatime.year
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -25,7 +26,7 @@ object ServicioEstadisticas {
                                 (TablasTransacciones.fecha.month() eq ahora.monthValue) and
                                 (TablasTransacciones.fecha.year() eq ahora.year)
                     }
-                    .map { it[TablasTransacciones.monto.sum()] ?: java.math.BigDecimal.ZERO }
+                    .map { it[TablasTransacciones.monto.sum()] ?: BigDecimal.ZERO }
                     .first().toDouble()
             }
 

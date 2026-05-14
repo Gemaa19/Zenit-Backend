@@ -4,6 +4,7 @@ import com.gema.zenit.data.tablas.*
 import com.gema.zenit.models.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.time.LocalDate
 
 object ServicioMetas {
     fun crearMeta(datos: SolicitudMeta, idUsuario: Long): Long {
@@ -12,7 +13,7 @@ object ServicioMetas {
                 it[nombre] = datos.nombre
                 it[objetivo] = datos.objetivo.toBigDecimal()
                 it[usuarioId] = idUsuario
-                it[fechaLimite] = java.time.LocalDate.parse(datos.fechaLimite)
+                it[fechaLimite] = LocalDate.parse(datos.fechaLimite)
             }.value // .value extrae el Long para devolverlo
         }
     }
